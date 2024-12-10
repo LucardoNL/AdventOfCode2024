@@ -5,9 +5,10 @@ matrix = [(int(v),(int(i),int(j))) for i,lst in enumerate(input) for j,v in enum
 startpunten = list(filter(lambda positie: positie[0] == 0, matrix ))
 
 score = 0
+rating = 0
 
 def vindvalideburen(punt, eindpunt):
-    global score
+    global score, rating
     x = punt[1][0]
     y = punt[1][1]
     stap = punt[0]
@@ -15,6 +16,7 @@ def vindvalideburen(punt, eindpunt):
     #print(stap, potentieleburen, eindpunt)
     for buur in potentieleburen:
         if buur[0] == 9 and stap == 8:
+            rating += 1
             if buur not in eindpunt:
                 eindpunt.append(buur)
                 score += 1
@@ -22,7 +24,7 @@ def vindvalideburen(punt, eindpunt):
                 
         elif buur[0] == stap+1:
             vindvalideburen(buur, eindpunt)
-    return score
+    return score, rating
             
 def buren(punt):
     max_rij = max([coord[1][0] for coord in matrix])
@@ -48,4 +50,4 @@ for startpunt in startpunten:
 # eindpunt = []
 # vindvalideburen((0,(2,4)), eindpunt)
 
-print(score)
+print(score, rating)
