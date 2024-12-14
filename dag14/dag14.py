@@ -59,10 +59,7 @@ for positie in eindposities:
 print(q1*q2*q3*q4)
 
 def moverobotstaps(robot, stap):
-    if stap == 0:
-        pos = robot[0].split(',')
-    else:
-        pos = robot[0]
+    pos = robot[0].split(',')
     xpos = int(pos[0])
     ypos = int(pos[1])
     speed = robot[1].split(',')
@@ -75,15 +72,14 @@ def moverobotstaps(robot, stap):
 
 startbeeld = [['_' for _ in range(101)] for _ in range(103)]
 
-for j in range(100):
+for j in range(10000):
+    robotlijst = []
+    robotset = set()
     for i, robot in enumerate(robots):
         (x,y) = moverobotstaps(robot, j)
-        robots[i][0] = (x,y)
-    beeld = copy.deepcopy(startbeeld)
-    for robot in robots:
-        beeld[robot[0][1]][robot[0][0]]='X'
-    for line in beeld:
-        print(''. join(line))
-    sleep(1)
-    print(j)
-    pass
+        robotlijst.append((x,y))
+        robotset.add((x,y))
+    if len(robotlijst) == len(robotset):
+        print(j)
+        break
+    print(j, len(robotlijst) , len(robotset))
